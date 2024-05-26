@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+*{
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body{
+ font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  background-color: #242529;
+}
+
+#root{
+  display: flex;
+  height: 100vh;
+}
