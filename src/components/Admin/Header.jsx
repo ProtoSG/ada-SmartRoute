@@ -19,6 +19,7 @@ export const Header = () => {
           <ItemLink name="Inicio" link="" icon={<House className="size-8" />} />
           <ItemLink name="Conductores" link="conductores" icon={<UserPlus className="size-8" />} />
           <ItemLink name="Rutas" link="rutas" icon={<RouteIcon className="size-8" />} />
+          <ItemLink name="Clientes" link="clientes" icon={<RouteIcon className="size-8" />} />
         </ul>
       </nav>
     </header>

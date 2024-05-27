@@ -7,6 +7,7 @@ import { Inicio } from './pages/admin/pages/Inicio'
 import { Conductores } from './pages/admin/pages/Conductores'
 import { RutaCon } from './pages/driver/pages/RutaCon'
 import { PerfilCon } from './pages/driver/pages/PerfilCon'
+import { Clientes } from './pages/admin/pages/Clientes'
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
         <Route path="" element={<Inicio />} />
         <Route path="conductores" element={<Conductores />} />
         <Route path="rutas" element={<Rutas />} />
+        <Route path="clientes" element={<Clientes />} />
       </Route>
       <Route path="/login" element={<Login />} />
       <Route path='/conductor' element={<Driver />} >
