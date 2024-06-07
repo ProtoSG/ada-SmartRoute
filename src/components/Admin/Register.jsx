@@ -9,11 +9,11 @@ export const Register = (props) => {
       <div
         className={`w-24 ml-20 h-15 border-2 rounded-lg bg-opacity-20 ${
           props.estado === "Activo"
-            ? "bg-green-600 border-green-300"
+            ? "bg-green-600 border-green-300 hover:bg-green-800 transition duration-300"
             : props.estado === "Inactivo"
-            ? "bg-red-600 border-red-300"
+            ? "bg-red-600 border-red-300 hover:bg-red-500 transition duration-300"
             : props.estado === "En ruta"
-            ? "bg-blue-600 border-blue-300"
+            ? "bg-blue-600 border-blue-300 hover:bg-blue-800 transition duration-300"
             : ""
         }`}
       >
