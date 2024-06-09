@@ -5,9 +5,9 @@ import { Login } from './pages/login/Login'
 import { Driver } from './pages/driver/Driver'
 import { Inicio } from './pages/admin/pages/Inicio'
 import { Conductores } from './pages/admin/pages/Conductores'
-import { RutaCon } from './pages/driver/pages/RutaCon'
 import { PerfilCon } from './pages/driver/pages/PerfilCon'
 import { Clientes } from './pages/admin/pages/Clientes'
+import { SolicitarRutaCon } from './pages/driver/pages/SolicitarRutaCon'
 
 function App() {
 
@@ -21,7 +21,7 @@ function App() {
       </Route>
       <Route path="/login" element={<Login />} />
       <Route path='/conductor' element={<Driver />} >
-        <Route path='' element={<RutaCon />} />
+              <Route path='' element={<SolicitarRutaCon />} />
         <Route path='perfil' element={<PerfilCon />} />
       </Route>
       <Route path='*' element={<h1>Not Found</h1>} />

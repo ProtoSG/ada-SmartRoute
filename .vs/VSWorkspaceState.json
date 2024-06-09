@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\components",
+    "\\src\\components\\Admin",
+    "\\src\\icons",
+    "\\src\\pages",
+    "\\src\\pages\\admin",
+    "\\src\\pages\\admin\\pages",
+    "\\src\\pages\\driver",
+    "\\src\\pages\\driver\\pages"
+  ],
+  "SelectedNode": "\\src\\App.jsx",
+  "PreviewInSolutionExplorer": false
+}
