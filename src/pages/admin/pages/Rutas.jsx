@@ -1,37 +1,36 @@
-import { Button } from "../../../components/UI/Button"
-import { PlusIcon } from "../../../icons/PlusIcon"
-import route3 from "../../../assets/route3.png"
-import { useEffect, useState } from "react"
-import { ListDriver } from "../../../components/Admin/ListDriver"
-import { Map } from "../../../components/UI/Map"
+import { useCallback, useEffect, useState } from "react"
 import { Polyline } from "react-leaflet"
+import { ListDriver } from "../../../components/Admin/ListDriver"
+import { Button } from "../../../components/UI/Button"
+import { Map } from "../../../components/UI/Map"
+import { PlusIcon } from "../../../icons/PlusIcon"
+import { useRoutes } from "../hooks/useRoutes"
+import { Toaster, toast } from 'sonner'
 
 export const Rutas = () => {
   const [active, setActive] = useState(false)
   const [route, setRoute] = useState([])
   const limeOptions = { color: 'red' }
 
-  useEffect(() => {
-    if (route.length > 0) {
-      setActive(true)
+  const { routes, loadingRoutes, errorRoutes } = useRoutes()
+
+  const handleRoutes = useCallback(() => {
+    setActive(false);
+    if (errorRoutes) {
+      toast.error('Error al obtener los datos');
+    } else if (routes.length === 0) {
+      toast.error('No hay rutas disponibles');
+    } else {
+      toast.success('Rutas cargadas');
     }
-  }, [route])
+  }, [errorRoutes, routes, setActive]);
 
+  useEffect(() => {
+    handleRoutes()
+  }, [routes])
 
-  const multiPolyline = [
-    [
-      [-12.058618, -77.079876],
-      [-12.052618, -77.085876],
-    ],
-    [
-      [-12.058618, -77.079876],
-      [-12.061018, -77.085276],
-    ],
-    [
-      [-12.058618, -77.079876],
-      [-12.068618, -77.085876],
-    ]
-  ]
+  if (loadingRoutes) return <p>Loading...</p>
+  if (errorRoutes) return <p>Error al obtener los datos</p>
 
   return (
     <main className="px-10 py-12 text-text w-full">
@@ -43,7 +42,7 @@ export const Rutas = () => {
               active ? (
                 <Polyline pathOptions={limeOptions} positions={route} />
               ) : (
-                <Polyline pathOptions={limeOptions} positions={multiPolyline} />
+                <Polyline pathOptions={limeOptions} positions={routes} />
               )
             }
             <Polyline pathOptions={limeOptions} positions={route} />
@@ -55,14 +54,15 @@ export const Rutas = () => {
               <PlusIcon className="size-8" />
             </Button>
             <h4 className="py-6 text-3xl">Conductores</h4>
-            <ListDriver route={route} setRoute={setRoute} />
+            <ListDriver setActive={setActive} setRoute={setRoute} />
           </div>
           <Button
             text="Ver Rutas" className="mt-10"
-            onClick={() => setActive(false)}
+            onClick={handleRoutes}
           />
         </section>
       </div>
+      <Toaster richColors position="bottom-center" />
     </main>
   )
 }

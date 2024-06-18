@@ -1,54 +1,43 @@
-import { useState } from "react"
-import route1 from "../../assets/route1.png"
-import route2 from "../../assets/route2.png"
-import route3 from "../../assets/route3.png"
+import { useCallback, useState } from "react"
+import { useDrivers } from "../../pages/admin/hooks/useDrivers"
+import { useRouteDriver } from "../../hooks/useRouteDriver"
+import { Toaster, toast } from 'sonner'
 
-export const ListDriver = ({ route, setRoute }) => {
-  const [cond, setCond] = useState("")
-  const conductores = [
-    {
-      id: 1,
-      name: 'Juan Perez',
-      route: [
-        [-12.058618, -77.079876],
-        [-12.052618, -77.085876],
-      ]
-    },
-    {
-      id: 2,
-      name: 'Maria Lopez',
-      route: [
-        [-12.058618, -77.079876],
-        [-12.061018, -77.085276],
-      ]
-    },
-    {
-      id: 3,
-      name: 'Pedro Ramirez',
-      route: [
-        [-12.058618, -77.079876],
-        [-12.068618, -77.085876],
-      ]
+export const ListDriver = ({ setActive, setRoute }) => {
+  const [selectId, setSelectId] = useState()
+  const { drivers, loadingDrivers, errorDrivers } = useDrivers()
+  const { route, loadingRoute, errorRoute } = useRouteDriver(selectId)
+
+  const handleChangeRoute = useCallback((id) => {
+    setSelectId(id)
+    if (errorRoute) {
+      setRoute([])
+      toast.error('Error al obtener los datos')
     }
-  ]
+    else {
+      setRoute(route)
+      toast.success('Driver selected')
+    }
+    setActive(true)
+  }, [route, errorRoute, setRoute, setActive])
 
-  const handleChangeRoute = (conductor) => {
-    setCond(conductor.name)
-    setRoute(conductor.route)
-  }
+  if (loadingDrivers) return <p>Loading...</p>
+  if (errorDrivers) return <p>Error al obtener los datos</p>
+
   return (
     <div className="flex flex-col gap-6">
       {
-        conductores.map((conductor, index) => (
+        drivers.map((driver) => (
           <span
-            onClick={() => handleChangeRoute(conductor)}
-            key={index}
-            className={`border-2 border-text px-3 py-2 rounded-xl text-xl hover:bg-text hover:text-bg-100 cursor-pointer transition-all hover:font-bold hover:shadow-2xl ${cond === conductor.name ? 'bg-text text-bg-100 font-bold shadow-2xl' : ''}`}
+            onClick={() => handleChangeRoute(driver.id_driver)}
+            key={driver.id_driver}
+            className={`border-2 border-text px-3 py-2 rounded-xl text-xl hover:bg-text hover:text-bg-100 cursor-pointer transition-all hover:font-bold hover:shadow-2xl ${selectId === driver.id_driver ? 'bg-text text-bg-100 font-bold shadow-2xl' : ''}`}
           >
-            {conductor.name}
+            {driver.first_name} {driver.last_name}
           </span>
         ))
       }
+      <Toaster richColors position="bottom-center" />
     </div>
   )
 }
