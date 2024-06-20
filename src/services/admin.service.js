@@ -38,8 +38,14 @@ const getAllRoutes = async () => {
     throw new Error('Error fetching data')
   }
   const data = await response.json()
-  const routes = data.data
-  return routes
+  const points = data.data.route.points
+
+  const newPoints = points.map((point) => [
+    point.latitud,
+    point.longitud
+  ])
+
+  return newPoints
 }
 
 const getAllClients = async () => {

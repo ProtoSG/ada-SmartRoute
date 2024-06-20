@@ -29,24 +29,29 @@ export const Rutas = () => {
     handleRoutes()
   }, [routes])
 
-  if (loadingRoutes) return <p>Loading...</p>
-  if (errorRoutes) return <p>Error al obtener los datos</p>
-
   return (
     <main className="px-10 py-12 text-text w-full">
       <h2 className="text-4xl font-bold">Rutas</h2>
       <div className="grid grid-cols-4  gap-14 h-full py-10 ">
         <section className="bg-bg-200 col-span-3 rounded-2xl h-full flex justify-center">
-          <Map>
-            {
-              active ? (
-                <Polyline pathOptions={limeOptions} positions={route} />
+          {
+            loadingRoutes
+              ? (
+                <p>Cargando datos...</p>
               ) : (
-                <Polyline pathOptions={limeOptions} positions={routes} />
+
+                <Map>
+                  {
+                    active ? (
+                      <Polyline pathOptions={limeOptions} positions={route} />
+                    ) : (
+                      <Polyline pathOptions={limeOptions} positions={routes} />
+                    )
+                  }
+                  <Polyline pathOptions={limeOptions} positions={route} />
+                </Map>
               )
-            }
-            <Polyline pathOptions={limeOptions} positions={route} />
-          </Map>
+          }
         </section>
         <section className="col-span-1 flex flex-col justify-between">
           <div>

@@ -8,10 +8,10 @@ export const ItemLink = ({ name, link, icon }) => {
   return (
     <Link
       to={`/${link}`}
-      className={`flex gap-3 text-lg p-3 rounded-xl transition-all ${isSelected ? "bg-bg-200" : ""}`}
+      className={`flex gap-3 text-lg w-full p-3 rounded-xl transition-all ${isSelected ? "bg-bg-200" : ""}`}
     >
       {icon}
-      <span>{name}</span>
+      <span className="lg:block hidden">{name}</span>
     </Link>
   )
 }

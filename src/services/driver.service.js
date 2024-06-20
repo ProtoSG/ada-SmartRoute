@@ -18,8 +18,14 @@ const getRouteDriver = async (id) => {
     throw new Error('Error fetching data')
   }
   const data = await response.json()
-  const route = data.data
-  return route
+  const points = data.data.route.points
+
+  const newPoints = points.map((point) => [
+    point.latitud,
+    point.longitud
+  ])
+
+  return newPoints
 }
 
 export {
