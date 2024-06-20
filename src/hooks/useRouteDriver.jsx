@@ -11,6 +11,7 @@ export const useRouteDriver = (id) => {
     const fetchRoute = async () => {
       try {
         setLoadingRoute(false)
+        setErrorRoute(null)
         const data = await getRouteDriver(id)
         setRoute(data)
       } catch (error) {
@@ -19,8 +20,13 @@ export const useRouteDriver = (id) => {
         setLoadingRoute(false)
       }
     }
-
-    fetchRoute()
+    if (id) {
+      fetchRoute()
+    } else {
+      setRoute([]);
+      setLoadingRoute(false);
+      setErrorRoute(null);
+    }
   }, [id])
 
   return { route, loadingRoute, errorRoute }

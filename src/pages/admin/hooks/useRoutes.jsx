@@ -15,7 +15,7 @@ export const useRoutes = () => {
         const data = await getAllRoutes()
         setRoutes(data)
       } catch (error) {
-        setErrorRoutes(error)
+        setErrorRoutes(error.message)
       } finally {
         setLoadingRoutes(false)
       }

@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useDrivers } from "../../pages/admin/hooks/useDrivers"
 import { useRouteDriver } from "../../hooks/useRouteDriver"
 import { Toaster, toast } from 'sonner'
@@ -16,10 +16,16 @@ export const ListDriver = ({ setActive, setRoute }) => {
     }
     else {
       setRoute(route)
-      toast.success('Driver selected')
+      toast.success('Conductor seleccionado')
     }
     setActive(true)
-  }, [route, errorRoute, setRoute, setActive])
+  }, [errorRoute, route, setRoute, setActive])
+
+  useEffect(() => {
+    if (selectId) {
+      setRoute(route);
+    }
+  }, [route, selectId, setRoute]);
 
   if (loadingDrivers) return <p>Loading...</p>
   if (errorDrivers) return <p>Error al obtener los datos</p>

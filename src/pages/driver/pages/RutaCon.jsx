@@ -3,6 +3,8 @@ import { Map } from "../../../components/UI/Map"
 import { useRouteDriver } from "../../../hooks/useRouteDriver"
 import { SolicitarRutaCon } from "./SolicitarRutaCon"
 import { useParams } from "react-router-dom"
+import { Toaster, toast } from 'sonner'
+import { useEffect } from "react"
 
 const RouteMapDriver = ({ route }) => {
   const limeOptions = { color: 'red' }
@@ -23,6 +25,14 @@ export const RutaCon = () => {
   const { id } = useParams()
   const { route, loadingRoute, errorRoute } = useRouteDriver(id)
 
+  useEffect(() => {
+    if (errorRoute) {
+      toast.error('Error al obtener los datos')
+    }
+  }, [errorRoute])
+
+  console.log("RUTA", route)
+
   return (
 
     <section className="p-5 h-full pb-44">
@@ -33,6 +43,7 @@ export const RutaCon = () => {
           <RouteMapDriver route={route} />
         )
       }
+      <Toaster richColors position="bottom-center" />
     </section>
   )
 }

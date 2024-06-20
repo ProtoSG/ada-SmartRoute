@@ -14,6 +14,8 @@ export const Rutas = () => {
 
   const { routes, loadingRoutes, errorRoutes } = useRoutes()
 
+  console.log("ROUTES", routes)
+
   const handleRoutes = useCallback(() => {
     setActive(false);
     if (errorRoutes) {
@@ -27,7 +29,9 @@ export const Rutas = () => {
 
   useEffect(() => {
     handleRoutes()
-  }, [routes])
+  }, [routes, handleRoutes])
+
+  console.log("render", route)
 
   return (
     <main className="px-10 py-12 text-text w-full">
@@ -48,7 +52,7 @@ export const Rutas = () => {
                       <Polyline pathOptions={limeOptions} positions={routes} />
                     )
                   }
-                  <Polyline pathOptions={limeOptions} positions={route} />
+                  {/* <Polyline pathOptions={limeOptions} positions={route} /> */}
                 </Map>
               )
           }
