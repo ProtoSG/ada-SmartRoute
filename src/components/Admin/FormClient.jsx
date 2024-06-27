@@ -1,20 +1,5 @@
 import { useStoreClientForm } from "./useStoreClientForm";
 
-const options = [
-  {
-    value: "jp",
-    label: "Juan Perez",
-  },
-  {
-    value: "ml",
-    label: "Maria Lopez",
-  },
-  {
-    value: "pr",
-    label: "Pedro Ramirez",
-  },
-];
-
 export const FormClient = ({ handleNewClient, handleSendClients }) => {
   const {
     latitud,
@@ -83,21 +68,6 @@ export const FormClient = ({ handleNewClient, handleSendClients }) => {
         />
       </div>
       <div className="w-full flex gap-2 flex-col">
-        <p className="text-text text-lg font-semibold">Conductor</p>
-        <select
-          type="select"
-          onChange={handleConductor}
-          name="conductor"
-          className="w-full bg-bg-200 flex justify-between border-text border-[1px] rounded-lg p-2 outline-none"
-        >
-          {options.map(({ label, value }) => (
-            <option key={value} value={value}>
-              {label}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="w-full flex gap-2 flex-col">
         <p className="text-text text-lg font-semibold">Nombre</p>
         <input
           type="select"
@@ -109,7 +79,7 @@ export const FormClient = ({ handleNewClient, handleSendClients }) => {
       </div>
       <button
         type="submit"
-        className="text-text bg-primary p-2 rounded-lg text-xl"
+        className="text-text bg-primary p-2 rounded-lg text-xl mt-16"
       >
         Generar Cliente
       </button>
