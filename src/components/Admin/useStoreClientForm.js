@@ -1,17 +1,15 @@
-import { create, createStore } from 'zustand'
+import { create, createStore } from "zustand";
 
 export const useStoreClientForm = create((set) => ({
-  latitud: '',
-  setLatitud: (lat) => set(() => ({ latitud: lat})),
-  longitud: '',
+  latitud: "",
+  setLatitud: (lat) => set(() => ({ latitud: lat })),
+  longitud: "",
   setLongitud: (longitud) => set((state) => ({ ...state, longitud })),
-  conductor: '',
+  conductor: "",
   setConductor: (conductor) => set((state) => ({ ...state, conductor })),
-  cliente: '',
-  setClientName: (cliente) => set((state) => ({ ...state, cliente })),
-}))
-
-
+  name: "",
+  setClientName: (name) => set((state) => ({ ...state, name })),
+}));
 
 // export const createStoreClientForm = (initialState) => {
 //   return createStore((set) => ({
