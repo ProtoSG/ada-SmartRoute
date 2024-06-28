@@ -4,20 +4,17 @@ import { FormClient } from "./../../../components/Admin/FormClient";
 import { DraggableMarker } from "./../../../components/Admin/DraggableMarker";
 import { NoDraggableMarker } from "./../../../components/Admin/NoDraggableMarker";
 import useCreateClients from "../hooks/useCreateClients";
-import useRand from "../hooks/useRand";
 
 export const Clientes = () => {
   const { clients, handleNewClient } = useClient([]);
   console.log(clients);
   const { createClientsHandler, response, loading, error } = useCreateClients();
-  const { fetchRand } = useRand();
 
   const handleSendClients = async () => {
     try {
       await createClientsHandler(clients);
-      await fetchRand();
     } catch (error) {
-      console.error("Error sending clients:", error);
+      console.error("Error al enviar clientes:", error);
     }
   };
 

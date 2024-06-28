@@ -1,5 +1,5 @@
-import { ItemLink } from "./ItemLink"
-import { CarIcon, UserIcon, RouteIcon, House, Box } from "../../icons"
+import { ItemLink } from "./ItemLink";
+import { CarIcon, UserIcon, RouteIcon, House, Box } from "../../icons";
 
 export const Header = () => {
   return (
@@ -13,12 +13,28 @@ export const Header = () => {
       <nav>
         <ul className="mt-10 flex flex-col gap-4 lg:items-start  items-center">
           <ItemLink name="Inicio" link="" icon={<House className="size-8" />} />
-          <ItemLink name="Conductores" link="conductores" icon={<CarIcon className="size-8" />} />
-          <ItemLink name="Rutas" link="rutas" icon={<RouteIcon className="size-8" />} />
-          <ItemLink name="Clientes" link="clientes" icon={<UserIcon className="size-8" />} />
+          <ItemLink
+            name="Conductores"
+            link="conductores"
+            icon={<CarIcon className="size-8" />}
+          />
+          <ItemLink
+            name="Rutas"
+            link="rutas"
+            icon={<RouteIcon className="size-8" />}
+          />
+          <ItemLink
+            name="Clientes"
+            link="clientes"
+            icon={<UserIcon className="size-8" />}
+          />
+          <ItemLink
+            name="Generar Ruta"
+            link="generar-ruta"
+            icon={<RouteIcon className="size-8" />}
+          />
         </ul>
       </nav>
     </header>
-  )
-}
-
+  );
+};
