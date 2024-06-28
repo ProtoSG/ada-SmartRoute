@@ -1,23 +1,62 @@
 import { useCallback, useEffect, useState } from "react"
-import { Polyline } from "react-leaflet"
+import { Marker, Polyline, Popup, Tooltip } from "react-leaflet"
 import { ListDriver } from "../../../components/Admin/ListDriver"
 import { Button } from "../../../components/UI/Button"
 import { Map } from "../../../components/UI/Map"
 import { PlusIcon } from "../../../icons/PlusIcon"
 import { useRoutes } from "../hooks/useRoutes"
 import { Toaster, toast } from 'sonner'
+import { useClients } from '../hooks/useClients'
+
+const ItemPolyline = ({ route }) => {
+  return (
+    <Polyline
+      key={route.id}
+      pathOptions={{ color: `rgb(${Math.floor(Math.random() * 128)}, ${Math.floor(Math.random() * 128)}, ${Math.floor(Math.random() * 128)})` }}
+      positions={route.route}
+    >
+      <Tooltip direction="center" opacity={1} permanent>
+        {route.distance.toFixed(2)}
+      </Tooltip>
+    </Polyline>
+
+  )
+}
+
+const DriverRoute = ({ routes, idDriver }) => {
+  return (
+    <>
+      {routes.map((route) => (
+        route.id_driver === idDriver && (
+          <ItemPolyline key={route.id} route={route} />
+        )
+      ))}
+    </>
+  )
+}
+
+const FullRoutes = ({ routes }) => {
+  return (
+    <>
+      {routes.map((route) => (
+        <ItemPolyline key={route.id} route={route} />
+      ))}
+    </>
+  )
+}
 
 export const Rutas = () => {
   const [active, setActive] = useState(false)
-  const [route, setRoute] = useState([])
-  const limeOptions = { color: 'red' }
+  const [idDriver, setIdDriver] = useState(0)
 
   const { routes, loadingRoutes, errorRoutes } = useRoutes()
 
-  console.log("ROUTES", routes)
+  const { clients } = useClients()
+
 
   const handleRoutes = useCallback(() => {
     setActive(false);
+    setIdDriver(0)
     if (errorRoutes) {
       toast.error('Error al obtener los datos');
     } else if (routes.length === 0) {
@@ -25,13 +64,12 @@ export const Rutas = () => {
     } else {
       toast.success('Rutas cargadas');
     }
-  }, [errorRoutes, routes, setActive]);
+  }, [routes, setActive]);
 
   useEffect(() => {
     handleRoutes()
   }, [routes, handleRoutes])
 
-  console.log("render", route)
 
   return (
     <main className="px-10 py-12 text-text w-full">
@@ -47,12 +85,21 @@ export const Rutas = () => {
                 <Map>
                   {
                     active ? (
-                      <Polyline pathOptions={limeOptions} positions={route} />
+                      <DriverRoute routes={routes} idDriver={idDriver} />
                     ) : (
-                      <Polyline pathOptions={limeOptions} positions={routes} />
+                      <FullRoutes routes={routes} clients={clients} />
                     )
                   }
-                  {/* <Polyline pathOptions={limeOptions} positions={route} /> */}
+                  {clients.map((client) => (
+                    <Marker
+                      key={client.id_client}
+                      position={[client.latitud, client.longitud]}
+                    >
+                      <Popup>
+                        {client.name}
+                      </Popup>
+                    </Marker>
+                  ))}
                 </Map>
               )
           }
@@ -63,7 +110,7 @@ export const Rutas = () => {
               <PlusIcon className="size-8" />
             </Button>
             <h4 className="py-6 text-3xl">Conductores</h4>
-            <ListDriver setActive={setActive} setRoute={setRoute} />
+            <ListDriver setActive={setActive} idDriver={idDriver} setIdDriver={setIdDriver} />
           </div>
           <Button
             text="Ver Rutas" className="mt-10"
