@@ -39,14 +39,7 @@ const getAllRoutes = async () => {
   }
   const data = await response.json();
   const routes = data.data;
-
-  const newPoints = routes.map((route) => {
-    const { points } = route.route;
-
-    return points.map((point) => [point.latitud, point.longitud]);
-  });
-
-  return newPoints;
+  return routes;
 };
 
 const getAllClients = async () => {

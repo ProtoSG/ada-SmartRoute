@@ -13,7 +13,13 @@ export const useRoutes = () => {
         setLoadingRoutes(true)
         setErrorRoutes(null)
         const data = await getAllRoutes()
-        setRoutes(data)
+        const routes = data.map((route) => ({
+          id: route.route.id_route,
+          id_driver: route.route.driver.id_driver,
+          route: route.route.points.map((point) => [point.latitud, point.longitud]),
+          distance: route.route.total_distance
+        }))
+        setRoutes(routes)
       } catch (error) {
         setErrorRoutes(error.message)
       } finally {
