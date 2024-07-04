@@ -6,22 +6,22 @@ export const useDrivers = () => {
   const [loadingDrivers, setLoadingDrivers] = useState(false)
   const [errorDrivers, setErrorDrivers] = useState(null)
 
-  useEffect(() => {
-    const fetchDrivers = async () => {
-      try {
-        setLoadingDrivers(true)
-        setErrorDrivers(null)
-        const data = await getAllDrivers()
-        setDrivers(data)
-      } catch (error) {
-        setErrorDrivers(error)
-      } finally {
-        setLoadingDrivers(false)
-      }
+  const fetchDrivers = async () => {
+    try {
+      setLoadingDrivers(true)
+      setErrorDrivers(null)
+      const data = await getAllDrivers()
+      setDrivers(data)
+    } catch (error) {
+      setErrorDrivers(error)
+    } finally {
+      setLoadingDrivers(false)
     }
+  }
 
+  useEffect(() => {
     fetchDrivers()
   }, [])
 
-  return { drivers, loadingDrivers, errorDrivers }
+  return { drivers, loadingDrivers, errorDrivers, fetchDrivers }
 }

@@ -2,7 +2,7 @@ import { Button } from "../UI/Button";
 import { PlusIcon } from "../../icons";
 import { DialogAddDriver } from "./DialogAddDriver";
 
-export const ButtonAdd = () => {
+export const ButtonAdd = ({ fetchDrivers }) => {
 
   const handleOpenAddDriver = () => {
     const dialogAddDriver = document.getElementById('dialog-add-driver')
@@ -16,7 +16,7 @@ export const ButtonAdd = () => {
           <PlusIcon className="size-8" />
         </Button>
       </div>
-      <DialogAddDriver />
+      <DialogAddDriver fetchDrivers={fetchDrivers} />
     </>
   );
 };

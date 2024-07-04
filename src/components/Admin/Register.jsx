@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { updateStatusDriver } from "../../services/admin.service";
+import { deleteDriver, updateStatusDriver } from "../../services/admin.service";
 
 export const Register = (props) => {
   const [active, setActive] = useState(false)
@@ -10,7 +10,13 @@ export const Register = (props) => {
       status: props.estado === 'activo' ? "inactivo" : "activo",
     })
     success ? alert("Estado cambiado correctamente") : alert("Error al cambiar el estado")
-    window.location.reload()
+    props.fetch()
+  }
+
+  const handleDeleteDriver = async () => {
+    const success = await deleteDriver(props.id)
+    success ? alert("Conductor Eliminado") : alert("Error al eliminar el conductor")
+    props.fetch()
   }
 
   const handleChangeActive = () => {
@@ -42,7 +48,17 @@ export const Register = (props) => {
         <span className={`absolute bg-bg-200 rounded-lg w-44 p-2 right-8 top-6 ${active ? 'block' : 'hidden'}`}>
           <button
             onClick={handleChangeStatus}
-            className="hover:bg-bg-100 rounded-lg w-full px-2 py-2 transition-colors">Cambiar estado</button>
+            className="hover:bg-bg-100 rounded-lg w-full px-2 py-2 transition-colors"
+          >
+            Cambiar estado
+          </button>
+          <button
+            onClick={handleDeleteDriver}
+            className="hover:bg-bg-100 rounded-lg w-full px-2 py-2 transition-colors"
+          >
+            Eliminar
+          </button>
+
         </span>
       </div>
     </div>

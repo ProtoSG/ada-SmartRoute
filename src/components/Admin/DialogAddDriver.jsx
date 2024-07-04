@@ -2,7 +2,7 @@ import { useState } from "react"
 import { ItemInput } from "./ItemInput"
 import { postDriver } from "../../services/admin.service"
 
-export const DialogAddDriver = () => {
+export const DialogAddDriver = ({ fetchDrivers }) => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [firstName, setFirstName] = useState("")
@@ -32,6 +32,7 @@ export const DialogAddDriver = () => {
     success ? alert("Conductor Creado") : alert("Error al crear el Conductor")
 
     resetVariables()
+    fetchDrivers()
   }
 
   const resetVariables = () => {

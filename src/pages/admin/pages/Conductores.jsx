@@ -6,12 +6,12 @@ import { TitleTable } from "../../../components/Admin/Table";
 import { useDrivers } from "../hooks/useDrivers";
 
 export const Conductores = () => {
-  const { drivers, loadingDrivers, errorDrivers } = useDrivers()
+  const { drivers, loadingDrivers, errorDrivers, fetchDrivers } = useDrivers()
 
   return (
     <main className="px-10 py-12 text-text w-full">
       <h1 className="text-4xl font-bold">Conductores</h1>
-      <ButtonAdd></ButtonAdd>
+      <ButtonAdd fetchDrivers={fetchDrivers} />
       <h2 className=" text-xl mb-8">
         <strong>Conductores</strong>
       </h2>
@@ -23,10 +23,12 @@ export const Conductores = () => {
               : drivers && drivers.map((driver) => (
                 <Register
                   key={driver.id_driver}
+                  id={driver.id_driver}
                   nombre={driver.first_name}
                   apellido={driver.last_name}
                   username={driver.username}
                   estado={driver.status}
+                  fetch={fetchDrivers}
                 />
               ))
         }

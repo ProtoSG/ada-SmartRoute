@@ -110,6 +110,22 @@ const updateStatusDriver = async ({ username, status }) => {
     return false
   }
 }
+
+const deleteDriver = async (id) => {
+  try {
+    const response = await fetch(`${api_admin}/delete/driver/${id}`, {
+      method: "DELETE"
+    })
+    const res = await response.json()
+    if (res.error) return false
+    return true
+  } catch (error) {
+    console.error(error)
+    return false
+  }
+}
+
+
 export {
   getInfoAdmin,
   getRand,
@@ -118,5 +134,6 @@ export {
   createClients,
   getAllClients,
   postDriver,
-  updateStatusDriver
+  updateStatusDriver,
+  deleteDriver
 };

@@ -21,7 +21,7 @@ export const GenerarRuta = () => {
       <h2 className="text-4xl font-bold">Generar Ruta</h2>
       <div className="grid grid-cols-4 gap-14 py-10 h-full">
         <Map>
-          <Marker position={[-12.0, -77.008]} /> //
+          {/* <Marker position={[-12.0, -77.008]} /> // */}
           {loadingClients ? (
             <p>Cargando datos...</p>
           ) : (
