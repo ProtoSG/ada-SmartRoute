@@ -3,8 +3,11 @@ import { ButtonOptions } from "../../../components/Admin/ButtonOptions";
 import { ButtonPages } from "../../../components/Admin/ButtonPages";
 import { Register } from "../../../components/Admin/Register";
 import { TitleTable } from "../../../components/Admin/Table";
+import { useDrivers } from "../hooks/useDrivers";
 
 export const Conductores = () => {
+  const { drivers, loadingDrivers, errorDrivers } = useDrivers()
+
   return (
     <main className="px-10 py-12 text-text w-full">
       <h1 className="text-4xl font-bold">Conductores</h1>
@@ -13,36 +16,21 @@ export const Conductores = () => {
         <strong>Conductores</strong>
       </h2>
       <TitleTable></TitleTable>
-      <Register
-        nombre="Brayan"
-        apellido="Alquizar"
-        username="SketDx"
-        estado="Activo"
-      ></Register>
-      <Register
-        nombre="Giovanni"
-        apellido="Coronel"
-        username="Gio"
-        estado="Inactivo"
-      ></Register>
-      <Register
-        nombre="Deyvi"
-        apellido="Gomez"
-        username="deyvigo"
-        estado="En ruta"
-      ></Register>
-      <Register
-        nombre="Deyvi"
-        apellido="Gomez"
-        username="deyvigo"
-        estado="En ruta"
-      ></Register>
-      <Register
-        nombre="Deyvi"
-        apellido="Gomez"
-        username="deyvigo"
-        estado="En ruta"
-      ></Register>
+      <span>
+        {
+          loadingDrivers ? <span>Cargando Conductores</span>
+            : errorDrivers ? <span>Error al cargar los Conductores</span>
+              : drivers && drivers.map((driver) => (
+                <Register
+                  key={driver.id_driver}
+                  nombre={driver.first_name}
+                  apellido={driver.last_name}
+                  username={driver.username}
+                  estado={driver.status}
+                />
+              ))
+        }
+      </span>
       <ButtonPages inicio="1" final="5" total="12"></ButtonPages>
     </main>
   );
