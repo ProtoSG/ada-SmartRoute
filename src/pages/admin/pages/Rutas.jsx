@@ -1,49 +1,14 @@
 import { useCallback, useEffect, useState } from "react"
-import { Marker, Polyline, Popup, Tooltip } from "react-leaflet"
+import { Marker, Popup } from "react-leaflet"
+import { Toaster, toast } from 'sonner'
+import { DriverRoute } from "../../../components/Admin/DriverRoute"
+import { FullRoutes } from "../../../components/Admin/FullRoutes"
 import { ListDriver } from "../../../components/Admin/ListDriver"
 import { Button } from "../../../components/UI/Button"
 import { Map } from "../../../components/UI/Map"
 import { PlusIcon } from "../../../icons/PlusIcon"
-import { useRoutes } from "../hooks/useRoutes"
-import { Toaster, toast } from 'sonner'
 import { useClients } from '../hooks/useClients'
-
-const ItemPolyline = ({ route }) => {
-  return (
-    <Polyline
-      key={route.id}
-      pathOptions={{ color: `rgb(${Math.floor(Math.random() * 128)}, ${Math.floor(Math.random() * 128)}, ${Math.floor(Math.random() * 128)})` }}
-      positions={route.route}
-    >
-      <Tooltip direction="center" opacity={1} permanent>
-        {route.distance.toFixed(2)}
-      </Tooltip>
-    </Polyline>
-
-  )
-}
-
-const DriverRoute = ({ routes, idDriver }) => {
-  return (
-    <>
-      {routes.map((route) => (
-        route.id_driver === idDriver && (
-          <ItemPolyline key={route.id} route={route} />
-        )
-      ))}
-    </>
-  )
-}
-
-const FullRoutes = ({ routes }) => {
-  return (
-    <>
-      {routes.map((route) => (
-        <ItemPolyline key={route.id} route={route} />
-      ))}
-    </>
-  )
-}
+import { useRoutes } from "../hooks/useRoutes"
 
 export const Rutas = () => {
   const [active, setActive] = useState(false)
@@ -64,7 +29,7 @@ export const Rutas = () => {
     } else {
       toast.success('Rutas cargadas');
     }
-  }, [routes, setActive]);
+  }, [errorRoutes, routes]);
 
   useEffect(() => {
     handleRoutes()

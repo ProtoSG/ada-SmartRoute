@@ -12,7 +12,6 @@ export const Header = () => {
       </section>
       <nav>
         <ul className="mt-10 flex flex-col gap-4 lg:items-start  items-center">
-          <ItemLink name="Inicio" link="" icon={<House className="size-8" />} />
           <ItemLink
             name="Conductores"
             link="conductores"

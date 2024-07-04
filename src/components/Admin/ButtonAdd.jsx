@@ -1,11 +1,22 @@
-import React from "react";
+import { Button } from "../UI/Button";
+import { PlusIcon } from "../../icons";
+import { DialogAddDriver } from "./DialogAddDriver";
 
 export const ButtonAdd = () => {
+
+  const handleOpenAddDriver = () => {
+    const dialogAddDriver = document.getElementById('dialog-add-driver')
+    dialogAddDriver.showModal()
+  }
+
   return (
-    <div className=" flex flex-row-reverse">
-      <button className="bg-orange-600 h-9 w-52 h-14 rounded-xl text-white m-10 text-2xl hover:bg-orange-500 transition duration-300">
-        <p>+ Agregar</p>
-      </button>
-    </div>
+    <>
+      <div className=" flex flex-row-reverse">
+        <Button text="Agregar" onClick={handleOpenAddDriver}>
+          <PlusIcon className="size-8" />
+        </Button>
+      </div>
+      <DialogAddDriver />
+    </>
   );
 };

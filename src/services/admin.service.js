@@ -69,6 +69,30 @@ const createClients = async (clients) => {
   return data;
 };
 
+const postDriver = async (driver) => {
+  try {
+    const response = await fetch(`${api_admin}/register/driver`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        created_by: driver.created_by,
+        username: driver.username,
+        password: driver.password,
+        first_name: driver.first_name,
+        last_name: driver.last_name
+      })
+    })
+    const res = await response.json()
+    if (res.error) return false
+    return true
+  } catch (error) {
+    console.error(error)
+    return false
+  }
+}
+
 export {
   getInfoAdmin,
   getRand,
@@ -76,4 +100,5 @@ export {
   getAllRoutes,
   createClients,
   getAllClients,
+  postDriver,
 };
