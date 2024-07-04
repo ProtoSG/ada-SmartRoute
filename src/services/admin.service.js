@@ -93,6 +93,23 @@ const postDriver = async (driver) => {
   }
 }
 
+const updateStatusDriver = async ({ username, status }) => {
+  try {
+    const response = await fetch(`${api_admin}/update/driver/status`, {
+      method: "PUT",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username, status })
+    })
+    const res = await response.json()
+    if (res.error) return false
+    return true
+  } catch (error) {
+    console.error(error)
+    return false
+  }
+}
 export {
   getInfoAdmin,
   getRand,
@@ -101,4 +118,5 @@ export {
   createClients,
   getAllClients,
   postDriver,
+  updateStatusDriver
 };

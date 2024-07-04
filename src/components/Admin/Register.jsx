@@ -1,6 +1,22 @@
-import React from "react";
+import { useState } from "react";
+import { updateStatusDriver } from "../../services/admin.service";
 
 export const Register = (props) => {
+  const [active, setActive] = useState(false)
+
+  const handleChangeStatus = async () => {
+    const success = await updateStatusDriver({
+      username: props.username,
+      status: props.estado === 'activo' ? "inactivo" : "activo",
+    })
+    success ? alert("Estado cambiado correctamente") : alert("Error al cambiar el estado")
+    window.location.reload()
+  }
+
+  const handleChangeActive = () => {
+    setActive(!active)
+  }
+
   return (
     <div className=" flex flex-row flex-auto text-center py-5 border-t-2 border-gray-700">
       <div className="flex-1">{props.nombre}</div>
@@ -19,10 +35,15 @@ export const Register = (props) => {
         {props.estado}
       </div>
 
-      <div className="w-20 ml-10 ">
-        <button className="w-10">
+      <div className="w-20 ml-10 relative">
+        <button onClick={handleChangeActive} className="w-10">
           <strong>...</strong>
         </button>
+        <span className={`absolute bg-bg-200 rounded-lg w-44 p-2 right-8 top-6 ${active ? 'block' : 'hidden'}`}>
+          <button
+            onClick={handleChangeStatus}
+            className="hover:bg-bg-100 rounded-lg w-full px-2 py-2 transition-colors">Cambiar estado</button>
+        </span>
       </div>
     </div>
   );
