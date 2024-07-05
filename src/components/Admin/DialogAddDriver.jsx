@@ -1,8 +1,11 @@
 import { useState } from "react"
 import { ItemInput } from "./ItemInput"
 import { postDriver } from "../../services/admin.service"
+import { useDrivers } from "../../pages/admin/hooks/useDrivers"
 
-export const DialogAddDriver = ({ fetchDrivers }) => {
+export const DialogAddDriver = () => {
+  const { fetchDrivers } = useDrivers()
+
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [firstName, setFirstName] = useState("")

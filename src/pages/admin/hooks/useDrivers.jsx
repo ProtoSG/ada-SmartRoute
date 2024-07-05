@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 import { getAllDrivers } from "../../../services/admin.service"
 
-export const useDrivers = () => {
+const DriverContext = createContext()
+
+export const DriverProvider = ({ children }) => {
   const [drivers, setDrivers] = useState([])
   const [loadingDrivers, setLoadingDrivers] = useState(false)
   const [errorDrivers, setErrorDrivers] = useState(null)
@@ -23,5 +25,17 @@ export const useDrivers = () => {
     fetchDrivers()
   }, [])
 
-  return { drivers, loadingDrivers, errorDrivers, fetchDrivers }
+  return (
+    <DriverContext.Provider value={{ drivers, loadingDrivers, errorDrivers, fetchDrivers }}>
+      {children}
+    </DriverContext.Provider>
+  )
+}
+
+export const useDrivers = () => {
+  const context = useContext(DriverContext)
+  if (context === undefined) {
+    throw new Error("useDrivers must be used within a DriverProvider")
+  }
+  return context
 }

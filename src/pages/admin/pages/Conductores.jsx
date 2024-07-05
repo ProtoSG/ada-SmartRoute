@@ -6,12 +6,12 @@ import { TitleTable } from "../../../components/Admin/Table";
 import { useDrivers } from "../hooks/useDrivers";
 
 export const Conductores = () => {
-  const { drivers, loadingDrivers, errorDrivers, fetchDrivers } = useDrivers()
-
+  const { drivers, loadingDrivers, errorDrivers } = useDrivers()
+  console.log(drivers)
   return (
     <main className="px-10 py-12 text-text w-full">
       <h1 className="text-4xl font-bold">Conductores</h1>
-      <ButtonAdd fetchDrivers={fetchDrivers} />
+      <ButtonAdd />
       <h2 className=" text-xl mb-8">
         <strong>Conductores</strong>
       </h2>
@@ -28,7 +28,6 @@ export const Conductores = () => {
                   apellido={driver.last_name}
                   username={driver.username}
                   estado={driver.status}
-                  fetch={fetchDrivers}
                 />
               ))
         }

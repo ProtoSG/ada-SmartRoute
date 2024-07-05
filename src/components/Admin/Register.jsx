@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { deleteDriver, updateStatusDriver } from "../../services/admin.service";
+import { useDrivers } from "../../pages/admin/hooks/useDrivers";
 
 export const Register = (props) => {
   const [active, setActive] = useState(false)
+  const { fetchDrivers } = useDrivers()
 
   const handleChangeStatus = async () => {
     const success = await updateStatusDriver({
@@ -10,13 +12,13 @@ export const Register = (props) => {
       status: props.estado === 'activo' ? "inactivo" : "activo",
     })
     success ? alert("Estado cambiado correctamente") : alert("Error al cambiar el estado")
-    props.fetch()
+    fetchDrivers()
   }
 
   const handleDeleteDriver = async () => {
     const success = await deleteDriver(props.id)
     success ? alert("Conductor Eliminado") : alert("Error al eliminar el conductor")
-    props.fetch()
+    fetchDrivers()
   }
 
   const handleChangeActive = () => {
