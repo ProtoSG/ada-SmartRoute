@@ -9,6 +9,8 @@ import { Map } from "../../../components/UI/Map"
 import { PlusIcon } from "../../../icons/PlusIcon"
 import { useClients } from '../hooks/useClients'
 import { useRoutes } from "../hooks/useRoutes"
+import { customMarkerHome } from "../../../markers/customMarkerHome"
+
 
 export const Rutas = () => {
   const [active, setActive] = useState(false)
@@ -48,6 +50,10 @@ export const Rutas = () => {
               ) : (
 
                 <Map>
+                  <Marker
+                    position={[-11.981124, -76.9996855]}
+                    icon={customMarkerHome}
+                  ></Marker>
                   {
                     active ? (
                       <DriverRoute routes={routes} idDriver={idDriver} />
