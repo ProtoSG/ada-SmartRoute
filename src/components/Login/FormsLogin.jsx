@@ -1,12 +1,11 @@
-import React from "react";
 import { PasswordForm } from "./PasswordForm";
 import { UserNameForm } from "./UserNameForm";
 
-export const FormsLogin = () => {
+export const FormsLogin = ({ setUsername, setPassword }) => {
   return (
     <div className="">
-      <UserNameForm></UserNameForm>
-      <PasswordForm></PasswordForm>
+      <UserNameForm setUsername={setUsername} />
+      <PasswordForm setPassword={setPassword} />
     </div>
   );
 };
