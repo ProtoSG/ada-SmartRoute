@@ -5,10 +5,10 @@ import { Login } from "./pages/login/Login";
 import { Driver } from "./pages/driver/Driver";
 import { Inicio } from "./pages/admin/pages/Inicio";
 import { Conductores } from "./pages/admin/pages/Conductores";
-import { PerfilCon } from "./pages/driver/pages/PerfilCon";
 import { Clientes } from "./pages/admin/pages/Clientes";
 import { RutaCon } from "./pages/driver/pages/RutaCon";
 import { GenerarRuta } from "./pages/admin/pages/GenerarRuta";
+import { PerfilCon } from "./pages/driver/pages/PerfilCon";
 
 function App() {
   return (

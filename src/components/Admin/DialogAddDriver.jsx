@@ -2,6 +2,7 @@ import { useState } from "react"
 import { ItemInput } from "./ItemInput"
 import { postDriver } from "../../services/admin.service"
 import { useDrivers } from "../../pages/admin/hooks/useDrivers"
+import { useUser } from "../../hooks/useUser"
 
 export const DialogAddDriver = () => {
   const { fetchDrivers } = useDrivers()
@@ -19,12 +20,13 @@ export const DialogAddDriver = () => {
     if (name === 'lastName') setLastName(value)
   }
 
+  const { user } = useUser()
+
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    // TODO: obtener el username del admin
     const driver = {
-      created_by: "admin",
+      created_by: user.username,
       username: username,
       password: password,
       first_name: firstName,

@@ -6,7 +6,6 @@ import { FullRoutes } from "../../../components/Admin/FullRoutes"
 import { ListDriver } from "../../../components/Admin/ListDriver"
 import { Button } from "../../../components/UI/Button"
 import { Map } from "../../../components/UI/Map"
-import { PlusIcon } from "../../../icons/PlusIcon"
 import { useClients } from '../hooks/useClients'
 import { useRoutes } from "../hooks/useRoutes"
 import { customMarkerHome } from "../../../markers/customMarkerHome"
