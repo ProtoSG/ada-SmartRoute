@@ -77,10 +77,7 @@ export const Rutas = () => {
         </section>
         <section className="col-span-1 flex flex-col justify-between">
           <div>
-            <Button text="Generar Ruta">
-              <PlusIcon className="size-8" />
-            </Button>
-            <h4 className="py-6 text-3xl">Conductores</h4>
+            <h4 className="pb-6 text-3xl">Conductores</h4>
             <ListDriver setActive={setActive} idDriver={idDriver} setIdDriver={setIdDriver} />
           </div>
           <Button
