@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { getInfoDriver } from "../../../services/driver.service"
 
 export const useInfoDriver = (id) => {
-  const [infoDriver, setInfoDriver] = useState([])
+  const [infoDriver, setInfoDriver] = useState({})
   const [loadingInfoDriver, setLoadingInfoDriver] = useState(false)
   const [errorInfoDriver, setErrorInfoDriver] = useState(null)
 
@@ -12,7 +12,7 @@ export const useInfoDriver = (id) => {
         setLoadingInfoDriver(true)
         setErrorInfoDriver(null)
         const data = await getInfoDriver(id)
-        setInfoDriver(data)
+        setInfoDriver(data[0])
       } catch (error) {
         setErrorInfoDriver(error)
       } finally {
