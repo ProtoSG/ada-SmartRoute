@@ -3,6 +3,8 @@ import { FormsLogin } from "../../components/Login/FormsLogin";
 import { LoginButton } from "../../components/Login/LoginButton";
 import { TitleLogin } from "../../components/Login/TitleLogin";
 import useLogin from "./hooks/useLogin";
+import { jwtDecode } from "jwt-decode";
+import { useUser } from "../../hooks/useUser";
 
 export const Login = () => {
   const [username, setUsername] = useState("");
@@ -27,12 +29,25 @@ export const Login = () => {
     };
   }, []);
 
+  const { login: loginUser } = useUser();
+
   const handleLogin = async () => {
     try {
       const loginData = await login(username, password, role);
       if (loginData) {
+        const token = loginData.token;
         console.log("Login successful:", loginData);
-        localStorage.setItem("token", loginData.token);
+        localStorage.setItem("token", token);
+
+        const decodedToken = jwtDecode(token);
+        const user = {
+          username: decodedToken.sub.username,
+          id: decodedToken.sub.id_admin || decodedToken.sub.id_driver,
+          role: decodedToken.sub.role,
+        };
+
+        loginUser(user);
+
         if (role === "admin") {
           window.location.href = "/";
         } else {

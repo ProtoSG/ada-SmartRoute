@@ -1,26 +1,34 @@
-import { jwtDecode } from "jwt-decode"
-import { useEffect, useState } from "react"
+import { createContext, useContext, useState } from "react"
+
+const UserContext = createContext()
+
+export const UserProvider = ({ children }) => {
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem("user")
+    return storedUser ? JSON.parse(storedUser) : { username: "", id: null, role: "" }
+  })
+
+  const login = (userData) => {
+    setUser(userData)
+    localStorage.setItem("user", JSON.stringify(userData))
+  }
+
+  const logout = () => {
+    setUser({ username: "", id: null, role: "" })
+    localStorage.removeItem("user")
+  }
+
+  return (
+    <UserContext.Provider value={{ user, login, logout }}>
+      {children}
+    </UserContext.Provider>
+  )
+}
 
 export const useUser = () => {
-  const [user, setUser] = useState({ username: "", id: 0, role: "" });
-  const token = localStorage.getItem("token");
-
-  useEffect(() => {
-    if (token) {
-      try {
-        const decodedToken = jwtDecode(token);
-        setUser({
-          username: decodedToken.sub.username,
-          id: decodedToken.sub.id_admin || decodedToken.sub.id_driver,
-          role: decodedToken.sub.role,
-        });
-      } catch (error) {
-        console.error("Invalid token:", error);
-        localStorage.removeItem("token");
-        setUser({ username: "", id: 0, role: "" });
-      }
-    }
-  }, [token]);
-
-  return { user };
+  const context = useContext(UserContext)
+  if (!context) {
+    throw new Error("useUser must be used within a UserProvider")
+  }
+  return context
 };
